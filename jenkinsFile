@@ -1,0 +1,19 @@
+pipeline {
+    agent {
+        // Using Node 16 Docker image as the build agent
+        docker {
+            image 'node:16'
+        }
+    }
+
+    stages {
+        stage('Install Dependencies') {
+            steps {
+                // Installing npm dependencies
+                sh 'npm install --save'
+            }
+        }
+        
+   
+    }
+}
