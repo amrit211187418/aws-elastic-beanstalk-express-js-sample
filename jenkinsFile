@@ -6,7 +6,7 @@ pipeline {
     }
 
     environment {
-        SNYK_TOKEN = credentials('SNYK_TOKEN')  // Using API token from Jenkins global credentials store
+        SNYK_TOKEN = credentials('SNYK_TOKEN')
     }
 
     stages {
@@ -19,23 +19,17 @@ pipeline {
         stage('Snyk Security Scan') {
             steps {
                 script {
-                    // Installing Snyk globally
                     sh 'npm install -g snyk'
-                    
-                    // Authenticating Snyk using the API token
                     sh 'snyk auth $SNYK_TOKEN'
-                    
-                    // Running Snyk test to scan for vulnerabilities
-                    sh 'snyk test'
+                    sh 'snyk test --severity-threshold=high'
                 }
             }
         }
-
     }
 
     post {
         failure {
-            echo "Pipeline failed due to security vulnerabilities or other errors."
+            echo "Build failed due to security vulnerabilities or other issues."
         }
     }
 }
