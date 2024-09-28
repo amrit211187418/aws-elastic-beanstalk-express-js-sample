@@ -28,8 +28,11 @@ pipeline {
     }
 
     post {
-        failure {
-            echo "Build failed due to security vulnerabilities or other issues."
-        }
+    success {
+        echo "Build completed successfully!"
+    }
+    failure {
+        echo "Build failed due to security vulnerabilities or other issues."
+    }
     }
 }
